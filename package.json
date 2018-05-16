@@ -1,0 +1,33 @@
+{
+  "name": "flashy",
+  "version": "1.0.0",
+  "description": "Automated tools for router flashing",
+  "bin": {
+    "flashy": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephen304/flashy.git"
+  },
+  "keywords": [
+    "router",
+    "flash",
+    "firmware",
+    "openwrt",
+    "automatic",
+    "script"
+  ],
+  "author": "Stephen Smith <stephen304@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephen304/flashy/issues"
+  },
+  "homepage": "https://github.com/stephen304/flashy#readme",
+  "dependencies": {
+    "commander": "^2.15.1",
+    "require.all": "^2.0.4"
+  }
+}
