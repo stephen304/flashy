@@ -11,24 +11,24 @@ var program = require('commander');
 program
   .command('devices')
   .description('List the supported devices')
-  .option('-b, --brand <brand>')
+  .option('-b, --brand <brand>', 'filter devices by brand')
   .action((brand) => devices(brand));
 
 program
   .command('flash')
   .description('Initiate the flashing process for a specific router')
-  .option('-b, --brand <brand>')
-  .option('-m, --model <model>')
+  .option('-b, --brand <brand>', 'specify the router brand to flash')
+  .option('-m, --model <model>', 'specify the router model to flash')
   .action(flash);
 
-  program.on('--help', function(){
-    console.log('');
-    console.log('  Examples:');
-    console.log('');
-    console.log('    $ flashy devices Ubiquiti');
-    console.log('    $ flashy flash -b Xiaomi -m mir3');
-    console.log('');
-  });
+program.on('--help', function(){
+  console.log('');
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ flashy devices Ubiquiti');
+  console.log('    $ flashy flash -b Xiaomi -m mir3');
+  console.log('');
+});
 
 program
   .parse(process.argv);
