@@ -1,27 +1,4 @@
 #!/usr/bin/env node
-// require('yargs')
-//   .command('devices [brand]', 'list supported devices', (yargs) => {
-//     yargs
-//       .positional('brand', {
-//         describe: 'filter devices by brand'
-//       })
-//   }, (argv) => {
-//     devices(argv.brand)
-//   })
-//   .command('flash [brand] [model] --ip [ip-address]', 'flash the specified device', (yargs) => {
-//     yargs
-//       .positional('brand', {
-//         describe: 'specify the brand'
-//       })
-//       .positional('model', {
-//         describe: 'specify the model'
-//       })
-//       .default('ip', '192.168.1.1')
-//
-//   }, (argv) => {
-//     flash(argv.brand, argv.model, argv.ip)
-//   })
-//   .argv
 var p = require('path');
 
 var routers = require('require.all')({
@@ -30,18 +7,35 @@ var routers = require('require.all')({
 });
 
 var program = require('commander');
+
 program
-  .command('devices [brand]')
-  .description('List the supported devices; specify brand to filter')
+  .command('devices')
+  .description('List the supported devices')
+  .option('-b, --brand <brand>')
   .action((brand) => devices(brand));
 
 program
-  .command('flash [brand] [model] [ip]')
+  .command('flash')
   .description('Initiate the flashing process for a specific router')
+  .option('-b, --brand <brand>')
+  .option('-m, --model <model>')
   .action(flash);
+
+  program.on('--help', function(){
+    console.log('');
+    console.log('  Examples:');
+    console.log('');
+    console.log('    $ flashy devices Ubiquiti');
+    console.log('    $ flashy flash -b Xiaomi -m mir3');
+    console.log('');
+  });
 
 program
   .parse(process.argv);
+
+  if (!process.argv.slice(2).length) {
+    program.help();
+  }
 
 function devices(selectedBrand) {
   var selection = routers;
