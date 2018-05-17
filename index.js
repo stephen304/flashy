@@ -8,34 +8,34 @@ var routers = require('require.all')({
 
 var program = require('commander');
 
-program
-  .command('devices')
+program.command('devices')
   .description('List the supported devices')
-  .option('-b, --brand <brand>', 'filter devices by brand')
-  .action((brand) => devices(brand));
+  .option('-b, --brand [brand]', 'filter devices by brand')
+  .action(devices);
 
-program
-  .command('flash')
+program.command('flash')
   .description('Initiate the flashing process for a specific router')
   .option('-b, --brand <brand>', 'specify the router brand to flash')
   .option('-m, --model <model>', 'specify the router model to flash')
+  .option('--ip <ip>', 'specify the router ip to flash')
+  .option('-f, --firmware <file>', 'specify the firmware to flash')
   .action(flash);
 
 program.on('--help', function(){
   console.log('');
   console.log('  Examples:');
   console.log('');
+  console.log('    $ flashy devices');
   console.log('    $ flashy devices Ubiquiti');
   console.log('    $ flashy flash -b Xiaomi -m mir3');
   console.log('');
 });
 
-program
-  .parse(process.argv);
+program.parse(process.argv);
 
-  if (!process.argv.slice(2).length) {
-    program.help();
-  }
+if (!process.argv.slice(2).length) {
+  program.help();
+}
 
 function devices(selectedBrand) {
   var selection = routers;
