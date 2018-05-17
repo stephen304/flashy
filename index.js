@@ -37,17 +37,20 @@ if (!process.argv.slice(2).length) {
   program.help();
 }
 
-function devices(selectedBrand) {
+function devices(brand) {
+  // Filter if brand was specified
+  brand = typeof brand === "string" ? brand.toLowerCase() : null;
   var selection = routers;
-  if (selectedBrand && routers[selectedBrand.toLowerCase()]) {
+  if (brand && routers[brand]) {
     selection = {};
-    selection[selectedBrand.toLowerCase()] = routers[selectedBrand.toLowerCase()];
+    selection[brand] = routers[brand];
   }
 
-  for (var brand in selection) {
-    console.log(brand + ":");
+  // Output all applicable rouuter models
+  for (var oneBrand in selection) {
+    console.log(oneBrand + ":");
     var output = "   ";
-    for (var router in routers[brand]) {
+    for (var router in routers[oneBrand]) {
       output += " " + router;
     }
     if (output.trim()) {
